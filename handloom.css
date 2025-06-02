@@ -1,0 +1,235 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+header {
+    background-color: #2d3e50;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.hero {
+    background: url('https://cdn.pixabay.com/photo/2017/08/02/11/53/weaving-loom-2571179_640.jpg') no-repeat center center/cover;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero .btn {
+    background-color: #ff6f61;
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+}
+
+.section-paragraph {
+    margin: 20px;
+}
+
+.saree-collection {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.saree-collection h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.saree-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.saree-item:hover {
+    transform: scale(1.05);
+}
+
+.saree-item img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.saree-info {
+    margin-top: 15px;
+}
+
+.saree-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.saree-info p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ff6f61;
+    margin-top: 10px;
+}
+
+.buy-now {
+    background-color: #ff6f61;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+.buy-now:hover {
+    background-color: #e55f50;
+}
+
+footer {
+    background-color: #2d3e50;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+.about-section,
+.contact-section {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 0 20px;
+    color: #4a3f35;
+}
+
+.about-section h2,
+.contact-section h2 {
+    font-size: 2.8rem;
+    margin-bottom: 25px;
+    font-family: 'Georgia', serif;
+    text-align: center;
+}
+
+.about-section p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #5b4a3a;
+}
+
+.contact-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 500px;
+    margin: 0 auto 40px auto;
+}
+
+.contact-section label {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #6b4c3b;
+}
+
+.contact-section input,
+.contact-section textarea {
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1.5px solid #c9b89a;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.contact-section input:focus,
+.contact-section textarea:focus {
+    border-color: #b25836;
+    outline: none;
+}
+
+.contact-section button.btn {
+    background-color: #b25836;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-section button.btn:hover {
+    background-color: #933f17;
+}
+
+.contact-info {
+    max-width: 500px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: #6b4c3b;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.contact-info p {
+    margin: 8px 0;
+}
+
+footer {
+    background-color: #3e2f2f;
+    color: #f0e6d2;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 60px;
+    font-size: 1rem;
+    font-weight: 600;
+}
