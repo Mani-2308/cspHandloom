@@ -125,6 +125,108 @@
         </div>
     </section>
 
+    <!-- Floating Chat Icon -->
+<div id="chat-icon" style="position:fixed;bottom:20px;right:20px;width:60px;height:60px;background:#4CAF50;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;">
+  <span style="color:white;font-size:28px;">💬</span>
+</div>
+
+<!-- Chatbot Container (Initially Hidden) -->
+<div id="chatbot-container" style="display:none;position:fixed;bottom:90px;right:20px;width:330px;background:white;border:1px solid #ccc;border-radius:12px;box-shadow:0 0 12px rgba(0,0,0,0.15);font-family:sans-serif;overflow:hidden;z-index:9999;">
+  <div style="background:#4CAF50;color:white;padding:12px;font-weight:bold;">🧵 Handloom Sarees Chatbot</div>
+  <div id="chat-window" style="height:320px;overflow-y:auto;padding:10px;font-size:14px;"></div>
+  <form id="chat-form" style="display:flex;border-top:1px solid #ddd;">
+    <input type="text" id="chat-input" placeholder="Mee prashnani rayandi / Type your question..." style="flex:1;padding:10px;border:none;" />
+    <button type="submit" style="background:#4CAF50;color:white;border:none;padding:10px;">Send</button>
+  </form>
+</div>
+
+<script>
+const responses = [
+  { keywords: ["hi", "hello", "namaste", "hai", "welcome"], response: "Namaste! 😊 Welcome to Handloom Sarees. How may I help you today?" },
+  { keywords: ["emi", "sarees unnayi", "sarees kavali", "types", "collection"], response: "మా దగ్గర Cotton, Silk, Kalamkari, Ikat, మరియు Jamdani sarees అందుబాటులో ఉన్నాయి." },
+  { keywords: ["order", "ela order cheyyali", "how to order", "purchase"], response: "Order cheyyadaniki WhatsApp chayyandi lekapote Instagram lo message pettandi. Soon we will launch our full website too!" },
+  { keywords: ["location", "ekkada vuntaaru", "address"], response: "మేము Pedana, Andhra Pradesh లో ఉన్నాం – ఇది ప్రాచీన handloom weavingకి ప్రసిద్ధి." },
+  { keywords: ["shipping", "pampistara", "international"], response: "India motham ki shipping untundi. International shipping kuda chesthaamu. 🌍" },
+  { keywords: ["price", "rate", "entha", "expensive"], response: "Rates start from ₹800 and go up depending on the weave and fabric. Custom sarees kuda untayi!" },
+  { keywords: ["contact", "phone", "email", "call"], response: "📞 +91 987654321\n📧 contact@handloomsarees.com" },
+  { keywords: ["thank", "thanks", "dhanyavadamulu"], response: "Mee support ku dhanyavadamulu! 🙏 Mee kosam ikkadame untam." },
+  { keywords: ["help", "support", "em kavali"], response: "Mee doubts ni clear cheyyadaaniki ikkadame unnam. Sarees, orders, delivery – edaina adagandi!" },
+  { keywords: ["recommend", "suggest", "best saree"], response: "Festival ki Silk sarees, daily wear ki Cotton, and classy look ki Kalamkari chala best." },
+  { keywords: ["colors", "shades", "dye"], response: "Vivid colors lo sarees dorukutayi – indigo, maroon, mustard, peacock green." },
+  { keywords: ["material", "cloth type", "fabric"], response: "We use premium quality cotton, silk, and handwoven natural threads." },
+  { keywords: ["custom", "customize", "tailor"], response: "Customization ki WhatsApp lo maatladandi – meeku kavalsina design plan cheyyachu!" },
+  { keywords: ["delivery", "dispatch", "reach"], response: "Order dispatch avvadani ki 2-3 rojulu padutundi. Delivery usually 5-7 working days." },
+  { keywords: ["delay", "late", "not received"], response: "Mee order delay aina sare, WhatsApp lo order ID pampandi – we will check immediately." },
+  { keywords: ["refund", "return", "money back"], response: "Refund/return policies clear ga cheppabadi untayi. Damaged item ki full refund untundi." },
+  { keywords: ["exchange", "replace", "change"], response: "Exchange kosam please original packing maintain cheyyandi – 7 days lo process avutundi." },
+  { keywords: ["reviews", "feedback", "ratings"], response: "Mee feedback chala important. Instagram lo chudandi – customers reviews upload chesthaamu." },
+  { keywords: ["popular", "top", "trending"], response: "Ikat and Jamdani ipudu trending. Especially pastel tones lo chala demand lo unnayi." },
+  { keywords: ["birthday", "gift", "present"], response: "Birthday gift kosam silk sarees chala perfect choice. Traditional + premium." },
+  { keywords: ["festival", "pongal", "diwali", "sankranti"], response: "Festivals ki exclusive saree collections launch chesthaamu – limited stocks!" },
+  { keywords: ["offers", "discount", "sale"], response: "Latest offers Instagram lo post chesthaamu. Flash sales miss avvaku!" },
+  { keywords: ["bridal", "wedding", "pelli"], response: "Pelli ki best sarees – traditional weaves, bridal collection available." },
+  { keywords: ["whatsapp", "msg", "chat"], response: "Mee queries ki WhatsApp lo immediate response istam – click chesi message cheyyandi." },
+  { keywords: ["store", "shop", "visit"], response: "Mee visit ki swagatam! Shop Pedana lo undi – come experience the heritage live." },
+  { keywords: ["video", "reel", "demo"], response: "Demo reels and try-on videos Instagram page lo chudachu." },
+  { keywords: ["measurement", "size", "length"], response: "Sarees are standard 5.5 to 6.5 meters. Blouse piece additional ga untadi." },
+  { keywords: ["blouse", "matching", "extra"], response: "Matching blouse pieces included untayi – customization available on request." },
+  { keywords: ["bulk", "reseller", "wholesale"], response: "Bulk orders or reselling ki WhatsApp lo contact cheyyandi – special rates untayi." },
+  { keywords: ["payment", "upi", "gpay", "phonepe"], response: "UPI, GPay, PhonePe, bank transfer – anni options available." },
+  { keywords: ["cod", "cash", "door"], response: "COD (Cash on Delivery) option select cheyyachu at checkout." },
+  { keywords: ["tracking", "track", "status"], response: "Tracking link order dispatch tarvata pampistham – WhatsApp lo check cheyyandi." },
+  { keywords: ["quality", "guarantee", "trust"], response: "100% handloom. Quality ki compromise ledu. Saree value matrame kaadu, story kuda!" },
+  { keywords: ["style", "look", "fashion"], response: "Traditional yet modern looks available. Fusion of Indian roots + trend." },
+  { keywords: ["celebrity", "famous", "featured"], response: "Local celebrities kuda maa sarees vesaru – check out our Insta highlights!" },
+  { keywords: ["limited", "exclusive", "rare"], response: "Handwoven items – each saree oka art piece. Stocks limited." },
+  { keywords: ["instagram", "social", "profile"], response: "Follow us on Instagram @handloomsarees – reels, offers, feedback, and more!" },
+  { keywords: ["inspiration", "idea", "choose"], response: "Don’t worry. We’ll suggest best sarees based on your need – just say use case." }
+];
+
+const defaultResponse = "Sorry, adhi naku ardham kaaledu 😅. Try asking about types of sarees, ordering, or location.";
+
+const chatWindow = document.getElementById("chat-window");
+const chatForm = document.getElementById("chat-form");
+const chatInput = document.getElementById("chat-input");
+const chatIcon = document.getElementById("chat-icon");
+const chatbotContainer = document.getElementById("chatbot-container");
+
+// Toggle chat window on icon click
+chatIcon.addEventListener("click", () => {
+  chatbotContainer.style.display = chatbotContainer.style.display === "none" ? "block" : "none";
+});
+
+function appendMessage(text, sender) {
+  const msgDiv = document.createElement("div");
+  msgDiv.style.margin = "8px 0";
+  msgDiv.innerHTML = `<strong>${sender}:</strong> ${text}`;
+  chatWindow.appendChild(msgDiv);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+chatForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const userInput = chatInput.value.trim();
+  if (!userInput) return;
+
+  appendMessage(userInput, "You");
+  chatInput.value = "";
+
+  const lowerInput = userInput.toLowerCase();
+  let matched = false;
+
+  for (const res of responses) {
+    if (res.keywords.some(k => lowerInput.includes(k))) {
+      appendMessage(res.response, "Bot");
+      matched = true;
+      break;
+    }
+  }
+
+  if (!matched) appendMessage(defaultResponse, "Bot");
+});
+</script>
+
+
     <section id="about" class="about-section">
         <h2>About Us</h2>
         <p>At Handloom Sarees, we celebrate the rich heritage of handloom weaving by connecting skilled artisans with discerning buyers. Our mission is to empower handloom workers and preserve traditional craftsmanship through a transparent, direct marketplace. Each saree you purchase supports a weaver’s livelihood and keeps centuries-old art alive.</p>
